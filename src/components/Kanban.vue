@@ -23,6 +23,7 @@
             @dragenter.prevent="drop_zone_enter"
             @dragleave.prevent="drop_zone_leave"
             @dragover.prevent
+            @drop="drop_item(index,task_index)"
           ></div>
         </div>
         <div class="create-task" @click="create_task(index)">Create Task</div>
@@ -43,6 +44,7 @@ export default {
   props: {
     data: Array,
     create_task_submit: Function,
+    move_item_task:Function
   },
   methods: {
     create_task(index_column) {
@@ -68,6 +70,14 @@ export default {
       event.target.style.borderStyle = "none";
       event.target.style.transition = "height 0.5s";
     },
+    drop_item(column_index,task_index){
+    this.move_item_task(
+        this.current_column_index,
+        this.current_task_index,
+        column_index,
+        task_index
+    )
+    }
   },
   data() {
     return {
